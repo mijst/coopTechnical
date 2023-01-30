@@ -51,9 +51,7 @@ export const App = () => {
     setCurrencyOutput(currencyOutput)
     setResetTimer(true)
   }
-  return (
-    <div>
-      <Currency 
+  return <Currency 
       onAmountChange={handleAmountInputChange}
       onCurrencyChangeFrom={handleCurrencyInputChange}
       onCurrencyChangeTo={handleCurrencyOutputChange}
@@ -65,7 +63,4 @@ export const App = () => {
       value={amountOutput}
       resetTimer={resetTimer}
       />
-    </div>
-
-  );
 }
