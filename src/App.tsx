@@ -10,6 +10,7 @@ export const App = () => {
   const [currencyOutput, setCurrencyOutput] = useState<any>('EUR')
   const [data, setData] = useState([])
   const [dataFullDescription, setdataFullDescription] = useState([])
+  const [resetTimer,setResetTimer] = useState(false)
 
 
 
@@ -38,33 +39,33 @@ export const App = () => {
   const handleAmountInputChange = (amountInput : any) =>{
     setAmountOutput(format(amountInput * data[currencyOutput] / data[currencyInput]))
     setAmountInput(amountInput)
+    setResetTimer(true)
   }
   const handleCurrencyInputChange = (currencyInput : any) =>{
     setAmountOutput(format(amountInput * data[currencyOutput] / data[currencyInput]))
     setCurrencyInput(currencyInput)
-  }
-  const handleAmountOutputChange = (amountOutput : any) =>{
-    setAmountInput(format(amountOutput * data[currencyInput] / data[currencyOutput]))
-    setAmountOutput(amountOutput)
+    setResetTimer(true)
   }
   const handleCurrencyOutputChange = (currencyOutput : any) =>{
-    setAmountInput(format(amountOutput * data[currencyOutput] / data[currencyInput]))
+    setAmountOutput(format(amountInput * data[currencyOutput] / data[currencyInput]))
     setCurrencyOutput(currencyOutput)
+    setResetTimer(true)
   }
   return (
     <div>
       <Currency 
       onAmountChange={handleAmountInputChange}
-      onCurrencyChange={handleCurrencyInputChange}
-      currencies={Object.keys(data)} 
+      onCurrencyChangeFrom={handleCurrencyInputChange}
+      onCurrencyChangeTo={handleCurrencyOutputChange}
+      currencies={Object.keys(data)}
+      currenciesFull={dataFullDescription} 
       amount={amountInput} 
-      currency={currencyInput}/>
-      <Currency
-      onAmountChange={handleAmountOutputChange}
-      onCurrencyChange={handleCurrencyOutputChange}
-      currencies={Object.keys(data)} 
-      amount={amountOutput} 
-      currency={currencyOutput}/>
+      currencyFrom={currencyInput}
+      currencyTo={currencyOutput}
+      value={amountOutput}
+      resetTimer={resetTimer}
+      />
     </div>
+
   );
 }
